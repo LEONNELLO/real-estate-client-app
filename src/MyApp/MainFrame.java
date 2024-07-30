@@ -1174,6 +1174,17 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
     }//GEN-LAST:event_EditLotButtonActionPerformed
 
     private void AddLotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddLotButtonActionPerformed
+        //max limit check
+        int totalLotCount = 0;
+        for(Block block: blocks){
+            totalLotCount += block.getLots().size();
+        }
+        
+        if(totalLotCount >= 100){
+            JOptionPane.showMessageDialog(rootPane, "All blocks are full, delete a lot to continue.");
+            return;
+        }
+        
         JFrame addLotFrame = new JFrame("Add Lot");
         addLotFrame.setSize(500, 300);
         addLotFrame.setLayout(new GridLayout(6, 2));
@@ -1236,7 +1247,13 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
                         JOptionPane.showMessageDialog(addLotFrame, "Duplicate lot. Enter another lot number.");
                         return;
                     }
-
+                    
+                    //block limit of 20 lots
+                    if(block.getLots().size() == 20){
+                        JOptionPane.showMessageDialog(rootPane, "Block already full, choose another one.");
+                        return;
+                    }
+                    
                     parsedLotStatus = openStatusSpecificDialog(parsedLotStatus);
                     lotObject.setLotStatus(parsedLotStatus);
 
