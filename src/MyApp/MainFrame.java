@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.*;    
 
 import MyLibs.*;
+import static MyLibs.Block.allLots;
 import MyLibs.Search.*;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.io.IOException;
@@ -1154,6 +1155,14 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
         }
 
         ArrayList<Lot> lots = blockNumber.getLots();
+        for(int i = 0; i < blocks.length; i++){
+            for (int j = 0; j < blocks[i].getLots().size(); j++) {
+                Lot lot = blocks[i].getLots().get(j);
+                if (lot.getLotNumber() == lotNumber) {
+                        lot.getBlock().deleteLot(lot);
+                }
+            }
+        }
         for (int i=0; i<lots.size(); i++) {
             if (lots.get(i).getLotNumber() == lotNumber) {
                 lots.get(i).getBlock().deleteLot(lots.get(i));
@@ -1229,25 +1238,38 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
                     double parsedLotSize = Double.parseDouble(lotSize);
                     double parsedLotPrice = Double.parseDouble(lotPrice);
                     Status parsedLotStatus = statusFactory.createStatus(lotStatus);
-
-                    for (Lot lot : blockNum.getLots()) {
-                        if (lot.getLotNumber() == (int)rowData[0]) {
-                            lot.setLotNumber(lotNumber);
-
+                    
+                    for(int i = 0; i < blocks.length; i++){
+                        for (int j = 0; j < blocks[i].getLots().size(); j++) {
+                            Lot lot = blocks[i].getLots().get(j);
                             if (lot.getLotNumber() == (int)rowData[0]) {
-                                lot.setBlockNum(blockNum);
-                                lot.setLotNumber(lotNumber);
-                                lot.setLotSize(parsedLotSize);
-                                lot.setLotPrice(parsedLotPrice);
-                                lot.setLotStatus(parsedLotStatus);
-                                parsedLotStatus = openStatusSpecificDialog(parsedLotStatus);
+                                if (allLots.contains(lotNumber) && lot.getLotNumber() != lotNumber) {
+                                    JOptionPane.showMessageDialog(editLotFrame, "Duplicate lot. Enter another lot number.");
+                                    return;
+                                } 
 
-                                lot.setLotStatus(parsedLotStatus);
-                            } else if (!blockNum.checkDuplicateLot(lot)) {
-                                JOptionPane.showMessageDialog(editLotFrame, "Duplicate lot. Enter another lot number.");
-                                return;
+                                if(blocks[i].getBlockNum() != blockNum.getBlockNum()){
+                                    if(blockNum.getLots().size() >= 20){
+                                        JOptionPane.showMessageDialog(editLotFrame, "Block destination full, try deleting or choosing another one.");
+                                        return;
+                                    }
+                                    blocks[i].deleteLot(lot);
+                                    lot.setLotNumber(lotNumber);
+                                    blockNum.assignLot(lot);
+                                }
+                                
+                                if (lot.getLotNumber() == (int)rowData[0]) {
+                                    lot.setBlockNum(blockNum);
+                                    lot.setLotNumber(lotNumber);
+                                    lot.setLotSize(parsedLotSize);
+                                    lot.setLotPrice(parsedLotPrice);
+                                    lot.setLotStatus(parsedLotStatus);
+                                    parsedLotStatus = openStatusSpecificDialog(parsedLotStatus);
+
+                                    lot.setLotStatus(parsedLotStatus);
+                                }  
+
                             }
-
                         }
                     }
 
@@ -1721,6 +1743,8 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
                 tableModel.addRow(rowData);
             }
         }
+        populateReportTable();
+        populateReportStats();
     }
     public Block getBlock(int comboIndex) {
         switch (comboIndex) {
