@@ -3,17 +3,17 @@ package MyLibs;
 import java.io.Serializable;
 
 public class Lot implements Serializable{
-    String lotNumber;
+    int lotNumber;
     Block block;
     double lotSize;
     double lotPrice;
     Status lotStatus;
 
-    public String getLotNumber() {
+    public int getLotNumber() {
         return lotNumber;
     }
 
-    public void setLotNumber(String lotNumber) {
+    public void setLotNumber(int lotNumber) {
         this.lotNumber = lotNumber;
     }
 

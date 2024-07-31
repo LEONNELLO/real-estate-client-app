@@ -23,6 +23,16 @@ public class SizeFilter extends LotSearchDecorator {
         this.minSize = minSize;
         this.maxSize = maxSize;
     }
+    
+    public SizeFilter(Search decoratedSearch, double minSize, String nothing) {
+        super(decoratedSearch);
+        this.minSize = minSize;
+    }
+    
+    public SizeFilter(Search decoratedSearch, double maxSize) {
+        super(decoratedSearch);
+        this.maxSize = maxSize;
+    }
 
     @Override
     public List<Lot> search(List<Lot> lots) {

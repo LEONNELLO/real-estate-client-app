@@ -57,6 +57,14 @@ public class MainFrame extends javax.swing.JFrame {
         userLabel.setText(acc.getUsername());
         LotTable.setAutoCreateRowSorter(true);
         ReportTable.setAutoCreateRowSorter(true);
+        //right-align some columns
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment( JLabel.RIGHT );
+        LotTable.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+        LotTable.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+        ReportTable.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+        ReportTable.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+        resultCountLabel.setVisible(false);
     }
 
     /**
@@ -104,6 +112,9 @@ public class MainFrame extends javax.swing.JFrame {
         blockNumFieldSearch = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lotnumBox = new javax.swing.JTextField();
+        tableResetButton = new javax.swing.JButton();
         LotInfoPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -116,6 +127,7 @@ public class MainFrame extends javax.swing.JFrame {
         SaleStartDateInfo = new javax.swing.JLabel();
         lotBuyerInfo = new javax.swing.JLabel();
         lotPurchaseDateInfo = new javax.swing.JLabel();
+        resultCountLabel = new javax.swing.JLabel();
         ReportPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ReportTable = new javax.swing.JTable();
@@ -171,7 +183,15 @@ public class MainFrame extends javax.swing.JFrame {
             new String [] {
                 "Lot Number", "Block Number", "Lot Size", "Lot Price", "Lot Status"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         LotTable.getTableHeader().setReorderingAllowed(false);
         LotTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -221,7 +241,7 @@ public class MainFrame extends javax.swing.JFrame {
         ManagementTablePaneLayout.setVerticalGroup(
             ManagementTablePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ManagementTablePaneLayout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ManagementTablePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ReserveButton)
@@ -304,7 +324,7 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 351, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 360, Short.MAX_VALUE)
                 .addComponent(logoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
@@ -396,31 +416,30 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel8.setText("Range");
 
+        jLabel5.setBackground(new java.awt.Color(6, 42, 90));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Lot Number");
+
+        tableResetButton.setBackground(new java.awt.Color(182, 221, 251));
+        tableResetButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        tableResetButton.setText("Reset");
+        tableResetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tableResetButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout MainManagementPaneLayout = new javax.swing.GroupLayout(MainManagementPane);
         MainManagementPane.setLayout(MainManagementPaneLayout);
         MainManagementPaneLayout.setHorizontalGroup(
             MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainManagementPaneLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainManagementPaneLayout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(blockNumFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46))
-                            .addGroup(MainManagementPaneLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(MainManagementPaneLayout.createSequentialGroup()
-                                        .addComponent(minPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(maxPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MainManagementPaneLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(MainManagementPaneLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -431,34 +450,51 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(maxSizeField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(MainManagementPaneLayout.createSequentialGroup()
-                            .addGap(61, 61, 61)
-                            .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(maxSizeField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(EditLotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(DeleteLotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(AddLotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(MainManagementPaneLayout.createSequentialGroup()
-                                    .addGap(3, 3, 3)
-                                    .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tableRefreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(SearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(27, 27, 27)))
-                    .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(EditLotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(DeleteLotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(AddLotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(30, 30, 30)
+                                    .addComponent(blockNumFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(MainManagementPaneLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(MainManagementPaneLayout.createSequentialGroup()
+                                .addComponent(minPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(maxPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(MainManagementPaneLayout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(MainManagementPaneLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tableRefreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(SearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tableResetButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(MainManagementPaneLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lotnumBox, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         MainManagementPaneLayout.setVerticalGroup(
             MainManagementPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainManagementPaneLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71))
             .addGroup(MainManagementPaneLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(30, 30, 30)
                 .addComponent(AddLotButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EditLotButton)
@@ -484,7 +520,11 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(maxPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(18, 18, 18)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lotnumBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addComponent(jRadioButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButton1)
@@ -494,7 +534,13 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(SearchButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tableRefreshButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tableResetButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainManagementPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
 
         LotInfoPanel.setBackground(new java.awt.Color(182, 221, 251));
@@ -568,6 +614,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        resultCountLabel.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        resultCountLabel.setText("0 results found.");
+
         javax.swing.GroupLayout LotInfoPanelLayout = new javax.swing.GroupLayout(LotInfoPanel);
         LotInfoPanel.setLayout(LotInfoPanelLayout);
         LotInfoPanelLayout.setHorizontalGroup(
@@ -576,7 +625,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(LotInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(resultCountLabel))
                 .addGap(50, 50, 50))
         );
         LotInfoPanelLayout.setVerticalGroup(
@@ -586,7 +636,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addComponent(resultCountLabel)
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -599,16 +651,16 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(ManagementTablePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LotInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(MainManagementPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(ManagementTablePane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ManagementTablePane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LotInfoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
+            .addComponent(MainManagementPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         tabbedPane.addTab("Management", jPanel4);
@@ -624,7 +676,15 @@ public class MainFrame extends javax.swing.JFrame {
             new String [] {
                 "Lot Number", "Block Number", "Lot Size", "Lot Price", "Status"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(ReportTable);
 
         jPanel2.setBackground(new java.awt.Color(38, 153, 243));
@@ -767,7 +827,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 162, Short.MAX_VALUE)
                     .addComponent(jLabel11)
                     .addComponent(jLabel10)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -793,7 +853,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout ReportPanelLayout = new javax.swing.GroupLayout(ReportPanel);
@@ -823,7 +883,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 502, Short.MAX_VALUE)
+            .addComponent(tabbedPane)
         );
 
         pack();
@@ -850,12 +910,17 @@ private Status openStatusSpecificDialog(Status lotStatus) {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     Date startSaleDate = new SimpleDateFormat("yyyy-MM-dd").parse(startSaleDateField.getText());
+                    if(!isDateValid(startSaleDateField.getText()))
+                        throw new Exception();
                     ((StatusForSale) lotStatus).setStartSaleDate(startSaleDate);
                     statusDialog.dispose();
                 } catch (ParseException e) {
                     JOptionPane.showMessageDialog(statusDialog, "Enter a valid date...", "Date Format Error", JOptionPane.ERROR_MESSAGE);
                     contFlag = false;
                     return;
+                } catch (Exception e){
+                    JOptionPane.showMessageDialog(statusDialog, "Enter a valid date...", "Date Format Error", JOptionPane.ERROR_MESSAGE);
+                    contFlag = false;
                 }
                 contFlag = true; 
             }
@@ -881,6 +946,8 @@ private Status openStatusSpecificDialog(Status lotStatus) {
                 try {
                     String reserveeName = reserveeNameField.getText();
                     Date reserveDate = new SimpleDateFormat("yyyy-MM-dd").parse(reserveDateField.getText());
+                    if(!isDateValid(reserveDateField.getText()))
+                        throw new Exception();
                     ((StatusReserved) lotStatus).setReserveeName(reserveeName);
                     ((StatusReserved) lotStatus).setReserveDate(reserveDate);
                     
@@ -889,6 +956,9 @@ private Status openStatusSpecificDialog(Status lotStatus) {
                     contFlag = false; 
                     JOptionPane.showMessageDialog(statusDialog, "Enter a valid date...", "Date Format Error", JOptionPane.ERROR_MESSAGE);
                     return;
+                } catch (Exception e){
+                    JOptionPane.showMessageDialog(statusDialog, "Enter a valid date...", "Date Format Error", JOptionPane.ERROR_MESSAGE);
+                    contFlag = false;
                 }
                 contFlag = true;
             }
@@ -913,6 +983,8 @@ private Status openStatusSpecificDialog(Status lotStatus) {
                 try {
                     String purchaserName = purchaserNameField.getText();
                     Date purchaseDate = new SimpleDateFormat("yyyy-MM-dd").parse(purchaseDateField.getText());
+                    if(!isDateValid(purchaseDateField.getText()))
+                        throw new Exception();
                      ((StatusPurchased)lotStatus).setPurchaserName(purchaserName);
                     ((StatusPurchased)lotStatus).setPurchaseDate(purchaseDate);
                     statusDialog.dispose();
@@ -920,6 +992,9 @@ private Status openStatusSpecificDialog(Status lotStatus) {
                     contFlag = false;
                     JOptionPane.showMessageDialog(statusDialog, "Enter a valid date...", "Date Format Error", JOptionPane.ERROR_MESSAGE);
                     return;
+                } catch (Exception e){
+                    JOptionPane.showMessageDialog(statusDialog, "Enter a valid date...", "Date Format Error", JOptionPane.ERROR_MESSAGE);
+                    contFlag = false;
                 }
                 contFlag = true; 
             }
@@ -978,30 +1053,53 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
 
         Search search = new LotSearch();
 
+        //size
         if (!minSizeField.getText().isEmpty() && !maxSizeField.getText().isEmpty()) {
             double minSize = Double.parseDouble(minSizeField.getText());
             double maxSize = Double.parseDouble(maxSizeField.getText());
             search = new SizeFilter(search, minSize, maxSize);
+        } else if (!minSizeField.getText().isEmpty()){
+            double minSize = Double.parseDouble(minSizeField.getText());
+            search = new SizeFilter(search, minSize, null);
+        } else if (!maxSizeField.getText().isEmpty()){
+            double maxSize = Double.parseDouble(maxSizeField.getText());
+            search = new SizeFilter(search, maxSize);
         }
 
+        //blockNum
         if (!blockNumFieldSearch.getSelectedItem().equals("None")) {
             String blockNumber = (String) blockNumFieldSearch.getSelectedItem();
             search = new BlockFilter(search, blockNumber);
         }
 
+        //price
         if (!minPriceField.getText().isEmpty() && !maxPriceField.getText().isEmpty()) {
             double minPrice = Double.parseDouble(minPriceField.getText());
             double maxPrice = Double.parseDouble(maxPriceField.getText());
             search = new PriceFilter(search, minPrice, maxPrice);
+        } else if (!minPriceField.getText().isEmpty()){
+            double minPrice = Double.parseDouble(minPriceField.getText());
+            search = new SizeFilter(search, minPrice, null);
+        } else if (!maxPriceField.getText().isEmpty()){
+            double maxPrice = Double.parseDouble(maxPriceField.getText());
+            search = new SizeFilter(search, maxPrice);
+        }
+        
+        if (!lotnumBox.getText().isEmpty()){
+            int lotNumber = Integer.parseInt(lotnumBox.getText());
+            search = new LotNumFilter(search, lotNumber);
         }
 
+        //status
         String selectedButton = getSelectedButtonText(statusSearchGroup);
         if (selectedButton != null) {
             search = new StatusFilter(search, selectedButton);
         }
-
+        
+        //store
         List<Lot> filteredlotsList = search.search(lots);
 
+        //fill
         DefaultTableModel tableModel = (DefaultTableModel) LotTable.getModel();
         tableModel.setRowCount(0);
         for (Lot lot : filteredlotsList) {
@@ -1014,6 +1112,8 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
             };
             tableModel.addRow(rowData);
         }
+        resultCountLabel.setText(filteredlotsList.size() + " results found.");
+        resultCountLabel.setVisible(true);
     }//GEN-LAST:event_SearchButtonActionPerformed
 
     private void tableRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableRefreshButtonActionPerformed
@@ -1028,7 +1128,7 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
             JOptionPane.showMessageDialog(null, "Please select a lot to delete.");
             return;
         }
-        String lotNumber = (String) LotTable.getValueAt(lotRow, 0);
+        int lotNumber = (int) LotTable.getValueAt(lotRow, 0);
         Block blockNumber = (Block) LotTable.getValueAt(lotRow, 1);
 
         System.out.println("Block Number: " + blockNumber);
@@ -1067,7 +1167,7 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
         int lotRow = LotTable.getSelectedRow();
         if (lotRow == -1) {
             // No row is selected
-            JOptionPane.showMessageDialog(null, "Please select a lot to delete.");
+            JOptionPane.showMessageDialog(null, "Please select a lot to edit.");
             return;
         }
         for (int i=0; i<LotTable.getColumnCount(); i++) {
@@ -1115,7 +1215,7 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
         submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 // Retrieve input values
-                String lotNumber = lotNumberField.getText();
+                int lotNumber = Integer.parseInt(lotNumberField.getText());
                 Block blockNum = getBlock(blockNumberField.getSelectedIndex());
                 String lotSize = lotSizeField.getText();
                 String lotPrice = lotPriceField.getText();
@@ -1127,10 +1227,10 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
                     Status parsedLotStatus = statusFactory.createStatus(lotStatus);
 
                     for (Lot lot : blockNum.getLots()) {
-                        if (lot.getLotNumber().equals(rowData[0])) {
+                        if (lot.getLotNumber() == (int)rowData[0]) {
                             lot.setLotNumber(lotNumber);
 
-                            if (lot.getLotNumber().equals(rowData[0])) {
+                            if (lot.getLotNumber() == (int)rowData[0]) {
                                 lot.setBlockNum(blockNum);
                                 lot.setLotNumber(lotNumber);
                                 lot.setLotSize(parsedLotSize);
@@ -1232,12 +1332,13 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
                 int lotStatus = lotStatusField.getSelectedIndex();
 
                 try {
+                    int parsedLotNumber = Integer.parseInt(lotNumber);
                     double parsedLotSize = Double.parseDouble(lotSize);
                     double parsedLotPrice = Double.parseDouble(lotPrice);
                     Status parsedLotStatus = statusFactory.createStatus(lotStatus);
 
                     Lot lotObject = new Lot();
-                    lotObject.setLotNumber(lotNumber);
+                    lotObject.setLotNumber(parsedLotNumber);
                     lotObject.setBlockNum(block);
                     lotObject.setLotSize(parsedLotSize);
                     lotObject.setLotPrice(parsedLotPrice);
@@ -1289,7 +1390,7 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
         int lotRow = LotTable.getSelectedRow();
         if (lotRow == -1) {
             // No row is selected
-            JOptionPane.showMessageDialog(null, "Please select a lot to delete.");
+            JOptionPane.showMessageDialog(null, "Please select a lot first.");
             return;
         }
         String lotNumber = (String) LotTable.getValueAt(lotRow, 0);
@@ -1317,7 +1418,7 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
         int lotRow = LotTable.getSelectedRow();
         if (lotRow == -1) {
             // No row is selected
-            JOptionPane.showMessageDialog(null, "Please select a lot to delete.");
+            JOptionPane.showMessageDialog(null, "Please select a lot first.");
             return;
         }
         String lotNumber = (String) LotTable.getValueAt(lotRow, 0);
@@ -1346,7 +1447,7 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
         int lotRow = LotTable.getSelectedRow();
         if (lotRow == -1) {
             // No row is selected
-            JOptionPane.showMessageDialog(null, "Please select a lot to delete.");
+            JOptionPane.showMessageDialog(null, "Please select a lot first.");
             return;
         }
         String lotNumber = (String) LotTable.getValueAt(lotRow, 0);
@@ -1435,6 +1536,16 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
         logoutPanel.setBackground(new Color(6, 42, 90));
         logoutButton.setBackground(new Color(199, 207, 218));
     }//GEN-LAST:event_logoutButtonMouseExited
+
+    private void tableResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableResetButtonActionPerformed
+        minSizeField.setText("");
+        maxSizeField.setText("");
+        minPriceField.setText("");
+        maxPriceField.setText("");
+        blockNumFieldSearch.setSelectedIndex(0);
+        lotnumBox.setText("");
+        statusSearchGroup.clearSelection();
+    }//GEN-LAST:event_tableResetButtonActionPerformed
    
         // Method to populate the report table
         private void populateReportTable() {
@@ -1519,6 +1630,7 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1545,6 +1657,7 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
     private javax.swing.JLabel lotReservedInfo;
     private javax.swing.JLabel lotSizeInfo;
     private javax.swing.JLabel lotStatusInfo;
+    private javax.swing.JTextField lotnumBox;
     private javax.swing.JLabel lotsForSaleLabel;
     private javax.swing.JLabel lotsReservedLabel;
     private javax.swing.JLabel lotsSoldLabel;
@@ -1555,15 +1668,40 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
     private javax.swing.JLabel numBlocks;
     private javax.swing.JLabel numBlocksReport;
     private javax.swing.JLabel numTotalLots;
+    private javax.swing.JLabel resultCountLabel;
     private javax.swing.ButtonGroup statusSearchGroup;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JButton tableRefreshButton;
+    private javax.swing.JButton tableResetButton;
     private javax.swing.JLabel userImg;
     private javax.swing.JLabel userLabel;
     // End of variables declaration//GEN-END:variables
 
 
     // USER-DEFINED
+    public boolean isDateValid(String date){//no leapyears
+        //yyyy-mm-dd
+        boolean isValid = true;
+        String[] split = date.split("-");
+        int year = Integer.parseInt(split[0]);
+        int month = Integer.parseInt(split[1]);
+        int day = Integer.parseInt(split[2]);
+        
+        if(year < 1900 || year > 2024)
+            isValid = false;
+        if(month < 1 || month > 12)
+            isValid = false;
+        if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+            if(day < 1 || day > 31)
+                isValid = false;
+        if(month == 4 || month == 6 || month == 9 || month == 11)
+            if(day < 1 || day > 30)
+                isValid = false;
+        if(month == 28)
+            if(day < 1 || day > 28)
+                isValid = false;
+        return isValid;
+    }
     public void refreshTable(){
         DefaultTableModel tableModel = (DefaultTableModel) LotTable.getModel();
         tableModel.setRowCount(0);
@@ -1624,11 +1762,12 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
     
     public void blockGenerator(){
         String[] names = {"John Doe", "Jane Smith", "Alice Guo", "Michael Brown", "Emily Davis", "David Wilson", "Elon Musk", "Tim Cook"}; 
+        int count = 1;
         for(int i = 0; i < blocks.length; i++){
             for(int j = 0; j < 20; j++){
                 Lot lot = new Lot();
                 lot.setBlockNum(blocks[i]);
-                lot.setLotNumber("B"+(i+1)+"L"+(j+1));
+                lot.setLotNumber(count);
                 lot.setLotPrice(round(random(30000, 500000)));
                 lot.setLotSize(round(random(100, 2000)));
                 
@@ -1674,6 +1813,7 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
                         break;
                 }
                 blocks[i].assignLot(lot);
+                count += 1;
             }
         }
     }
@@ -1713,7 +1853,7 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
         int selectedRow = LotTable.getSelectedRow();
         if (selectedRow != -1) {
             // Get the values from the selected row
-            String lotNumber = (String) LotTable.getValueAt(selectedRow, 0);
+            int lotNumber = (int)LotTable.getValueAt(selectedRow, 0);
             Block block = (Block) LotTable.getValueAt(selectedRow, 1);
             double lotSize = (Double) LotTable.getValueAt(selectedRow, 2);
             double lotPrice = (Double) LotTable.getValueAt(selectedRow, 3);

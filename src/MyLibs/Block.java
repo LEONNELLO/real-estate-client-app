@@ -8,7 +8,7 @@ public class Block implements Serializable{
     private String blockName;
     //lotClass
     private ArrayList<Lot> lots;
-    public static HashSet<String> allLots = new HashSet<>();
+    public static HashSet<Integer> allLots = new HashSet<>();
 
     public Block(String blockName, int blockNum) {
         this.blockName = blockName;
@@ -50,8 +50,4 @@ public class Block implements Serializable{
     public String toString() {
         return blockName;
     }
-
-
-
-    
 }

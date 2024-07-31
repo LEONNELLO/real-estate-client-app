@@ -30,7 +30,7 @@ public class DataIO{
     public Block[] LoadBlockData() throws IOException, ClassNotFoundException {
         ObjectInputStream input = new ObjectInputStream(new FileInputStream("blockData.dat"));
         Block[] blocks = (Block[]) input.readObject();
-        Block.allLots = (HashSet<String>) input.readObject();
+        Block.allLots = (HashSet<Integer>) input.readObject();
         input.close();
         return blocks;
     }
