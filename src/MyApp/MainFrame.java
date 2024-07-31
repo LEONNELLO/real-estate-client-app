@@ -1060,10 +1060,12 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
             search = new SizeFilter(search, minSize, maxSize);
         } else if (!minSizeField.getText().isEmpty()){
             double minSize = Double.parseDouble(minSizeField.getText());
-            search = new SizeFilter(search, minSize, null);
+            double maxSize = 1000000000;
+            search = new SizeFilter(search, minSize, maxSize);
         } else if (!maxSizeField.getText().isEmpty()){
+            double minSize = 0;
             double maxSize = Double.parseDouble(maxSizeField.getText());
-            search = new SizeFilter(search, maxSize);
+            search = new SizeFilter(search, minSize, maxSize);
         }
 
         //blockNum
@@ -1079,10 +1081,12 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
             search = new PriceFilter(search, minPrice, maxPrice);
         } else if (!minPriceField.getText().isEmpty()){
             double minPrice = Double.parseDouble(minPriceField.getText());
-            search = new SizeFilter(search, minPrice, null);
+            double maxPrice = 1000000000;
+            search = new SizeFilter(search, minPrice, maxPrice);
         } else if (!maxPriceField.getText().isEmpty()){
+            double minPrice = 0;
             double maxPrice = Double.parseDouble(maxPriceField.getText());
-            search = new SizeFilter(search, maxPrice);
+            search = new SizeFilter(search, minPrice, maxPrice);
         }
         
         if (!lotnumBox.getText().isEmpty()){

@@ -23,16 +23,6 @@ public class PriceFilter extends LotSearchDecorator {
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
     }
-    
-    public PriceFilter(Search decoratedSearch, double minPrice, String nothing) {
-        super(decoratedSearch);
-        this.minPrice = minPrice;
-    }
-    
-    public PriceFilter(Search decoratedSearch, double maxPrice) {
-        super(decoratedSearch);
-        this.maxPrice = maxPrice;
-    }
 
     @Override
     public List<Lot> search(List<Lot> lots) {

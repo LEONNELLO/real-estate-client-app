@@ -96,7 +96,7 @@
                       </Group>
                       <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="MainManagementPane" pref="0" max="32767" attributes="0"/>
+                  <Component id="MainManagementPane" pref="491" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
