@@ -1419,11 +1419,11 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
             JOptionPane.showMessageDialog(null, "Please select a lot first.");
             return;
         }
-        String lotNumber = (String) LotTable.getValueAt(lotRow, 0);
+        int lotNumber = (int) LotTable.getValueAt(lotRow, 0);
         Block blockNumber = (Block) LotTable.getValueAt(lotRow, 1);
 
         for (Lot lot : blockNumber.getLots()) {
-            if (lotNumber.equals(lot.getLotNumber())) {
+            if (lotNumber == lot.getLotNumber()) {
                 Status forSaleStatus = new StatusForSale();
                 forSaleStatus = openStatusSpecificDialog(forSaleStatus);
 
@@ -1447,11 +1447,11 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
             JOptionPane.showMessageDialog(null, "Please select a lot first.");
             return;
         }
-        String lotNumber = (String) LotTable.getValueAt(lotRow, 0);
+        int lotNumber = (int) LotTable.getValueAt(lotRow, 0);
         Block blockNumber = (Block) LotTable.getValueAt(lotRow, 1);
 
         for (Lot lot : blockNumber.getLots()) {
-            if (lotNumber.equals(lot.getLotNumber())) {
+            if (lotNumber == lot.getLotNumber()) {
                 Status purchasedStatus = new StatusPurchased();
                 purchasedStatus = openStatusSpecificDialog(purchasedStatus);
 
@@ -1476,11 +1476,11 @@ public String getSelectedButtonText(ButtonGroup buttonGroup) {
             JOptionPane.showMessageDialog(null, "Please select a lot first.");
             return;
         }
-        String lotNumber = (String) LotTable.getValueAt(lotRow, 0);
+        int lotNumber = (int)LotTable.getValueAt(lotRow, 0);
         Block blockNumber = (Block) LotTable.getValueAt(lotRow, 1);
 
         for (Lot lot : blockNumber.getLots()) {
-            if (lotNumber.equals(lot.getLotNumber())) {
+            if (lotNumber == lot.getLotNumber()) {
                 try {
                     Status reservedStatus = new StatusReserved();
                     reservedStatus = openStatusSpecificDialog(reservedStatus);
