@@ -43,7 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
         DataIO blocksData = new DataIO();
         JFrame loginFrame;
         Account account;
-        ImageIcon img = new ImageIcon("src/img/icon.jpg");
+        ImageIcon img = new ImageIcon("src/img/logo.png");
     /**
      * Creates new form MainFrame
      */

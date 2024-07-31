@@ -33,7 +33,7 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame() {
         setTitle("Camila Homes | Real Estate Management");
-        ImageIcon img = new ImageIcon("src/img/icon.jpg");
+        ImageIcon img = new ImageIcon("src/img/logo.png");
         setIconImage(img.getImage());
         initComponents();
     }
